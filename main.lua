@@ -19,7 +19,8 @@ function love.load()
     x = 0,
     y = 0,
     px = 0,
-    py = 0
+    py = 0,
+    flip = false
   }
   p = game.player
   p.spr = love.graphics.newImage('gfx/player.png')
@@ -87,6 +88,9 @@ function love.update(dt)
   p.px = p.px - (p.px - p.x) * dt * 10
   p.py = p.py - (p.py - p.y) * dt * 10
 
+  if lt then p.flip = true end
+  if rt then p.flip = false end
+
   game.input.up = up
   game.input.dn = dn
   game.input.lt = lt
@@ -98,5 +102,12 @@ function love.draw()
   local x = p.px * game.scale
   local y = p.py * game.scale
   local anim = math.floor(game.time * 2) % 2 + 1
-  love.graphics.draw(p.spr, p.quad[anim], x, y, 0, game.scale)
+  local sx, sy = game.scale, game.scale
+  local ox, oy = 0, 0
+  if p.flip then
+    x = x + game.scale
+    sx = sx * -1
+    ox = game.scale
+  end
+  love.graphics.draw(p.spr, p.quad[anim], x, y, 0, sx, sy, ox, oy)
 end
