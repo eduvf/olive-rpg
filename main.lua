@@ -2,7 +2,8 @@ function love.load()
   love.graphics.setDefaultFilter('nearest')
 
   game = {
-    scale = 6
+    scale = 6,
+    time = 0
   }
   
   game.gfx = {}
@@ -22,7 +23,10 @@ function love.load()
   }
   p = game.player
   p.spr = love.graphics.newImage('gfx/player.png')
-  p.quad = love.graphics.newQuad(0, 0, 8, 8, p.spr)
+  p.quad = {
+    love.graphics.newQuad(0, 0, 8, 8, p.spr),
+    love.graphics.newQuad(8, 0, 8, 8, p.spr)
+  }
 
   game.input = {
     up = false,
@@ -55,6 +59,8 @@ function love.resize()
 end
 
 function love.update(dt)
+  game.time = game.time + dt
+
   local up = love.keyboard.isScancodeDown('w', 'up')
   local dn = love.keyboard.isScancodeDown('s', 'down')
   local lt = love.keyboard.isScancodeDown('a', 'left')
@@ -91,5 +97,6 @@ function love.draw()
   love.graphics.draw(canvas, 0, 0, 0, game.scale)
   local x = p.px * game.scale
   local y = p.py * game.scale
-  love.graphics.draw(p.spr, p.quad, x, y, 0, game.scale)
+  local anim = math.floor(game.time * 2) % 2 + 1
+  love.graphics.draw(p.spr, p.quad[anim], x, y, 0, game.scale)
 end
