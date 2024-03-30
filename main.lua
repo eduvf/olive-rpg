@@ -10,7 +10,8 @@ function love.load()
   game.gfx.forest = {}
   game.gfx.forest.i = love.graphics.newImage('gfx/forest.png')
   game.gfx.forest.q = {
-    love.graphics.newQuad(0, 0, 8, 8, game.gfx.forest.i)
+    love.graphics.newQuad(0, 0, 8, 8, game.gfx.forest.i),
+    love.graphics.newQuad(8, 0, 8, 8, game.gfx.forest.i)
   }
 
   love.resize()
@@ -44,10 +45,14 @@ function simple_grid()
 
   love.graphics.setCanvas(canvas)
   local tile = game.gfx.forest.i
-  local quad = game.gfx.forest.q[1]
+  local quad = game.gfx.forest.q
   for x = 0, w, 8 do
     for y = 0, h, 8 do
-      love.graphics.draw(tile, quad, x, y)
+      local q = quad[1]
+      if math.random() > 0.5 then
+        q = quad[math.random(2)]
+      end
+      love.graphics.draw(tile, q, x, y)
     end
   end
   love.graphics.setCanvas()
