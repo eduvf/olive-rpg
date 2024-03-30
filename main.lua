@@ -40,9 +40,16 @@ function love.load()
   }
   p = game.player
   p.spr = love.graphics.newImage('gfx/player.png')
+  p.anim = 1
   p.quad = {
     love.graphics.newQuad(0, 0, 8, 8, p.spr),
-    love.graphics.newQuad(8, 0, 8, 8, p.spr)
+    love.graphics.newQuad(8, 0, 8, 8, p.spr),
+    love.graphics.newQuad(0, 8, 8, 8, p.spr),
+    love.graphics.newQuad(8, 8, 8, 8, p.spr),
+    love.graphics.newQuad(0, 16, 8, 8, p.spr),
+    love.graphics.newQuad(8, 16, 8, 8, p.spr),
+    love.graphics.newQuad(0, 24, 8, 8, p.spr),
+    love.graphics.newQuad(8, 24, 8, 8, p.spr),
   }
 
   game.input = {
@@ -132,13 +139,23 @@ function love.update(dt)
   game.input.dn = dn
   game.input.lt = lt
   game.input.rt = rt
+
+  if love.keyboard.isScancodeDown('1') then
+    p.anim = 1
+  elseif love.keyboard.isScancodeDown('2') then
+    p.anim = 2
+  elseif love.keyboard.isScancodeDown('3') then
+    p.anim = 3
+  elseif love.keyboard.isScancodeDown('4') then
+    p.anim = 4
+  end
 end
 
 function love.draw()
   love.graphics.draw(canvas, 0, 0, 0, game.scale)
   local x = p.px * game.scale
   local y = p.py * game.scale
-  local anim = math.floor(game.time * 2) % 2 + 1
+  local anim = math.floor(game.time * 2) % 2 + (p.anim * 2 - 1)
   local sx, sy = game.scale, game.scale
   local ox, oy = 0, 0
   if p.flip then
