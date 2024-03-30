@@ -13,6 +13,21 @@ function love.load()
     love.graphics.newQuad(0, 0, 8, 8, game.gfx.forest.i),
     love.graphics.newQuad(8, 0, 8, 8, game.gfx.forest.i)
   }
+  game.gfx.home = {}
+  game.gfx.home.i = love.graphics.newImage('gfx/home.png')
+  game.gfx.home.q = {
+    love.graphics.newQuad(0, 0, 8, 8, game.gfx.home.i),
+    love.graphics.newQuad(8, 0, 8, 8, game.gfx.home.i),
+    love.graphics.newQuad(0, 8, 8, 8, game.gfx.home.i),
+    love.graphics.newQuad(8, 8, 8, 8, game.gfx.home.i)
+  }
+  
+  game.object = {}
+  game.object.home = {
+    {3, 3, 3},
+    {2, 1, 2},
+    {0, 0, 4}
+  }
 
   love.resize()
 
@@ -38,6 +53,22 @@ function love.load()
   }
 end
 
+function draw_object(obj, img, quad, ox, oy)
+  for j = 1, #obj do
+    for i = 1, #obj[j] do
+      local id = obj[j][i]
+      if id > 0 then
+        local x = ox + i * 8
+        local y = oy + j * 8
+        love.graphics.setColor(0, 0, 0)
+        love.graphics.rectangle('fill', x, y, 8, 8)
+        love.graphics.setColor(1, 1, 1)
+        love.graphics.draw(img, quad[id], x, y)
+      end
+    end
+  end
+end
+
 function simple_grid()
   local w = math.floor(love.graphics.getWidth() / game.scale)
   local h = math.floor(love.graphics.getHeight() / game.scale)
@@ -55,6 +86,7 @@ function simple_grid()
       love.graphics.draw(tile, q, x, y)
     end
   end
+  draw_object(game.object.home, game.gfx.home.i, game.gfx.home.q, 8, 8)
   love.graphics.setCanvas()
 
   return canvas
