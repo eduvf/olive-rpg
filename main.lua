@@ -26,13 +26,6 @@ function love.load()
     love.graphics.newQuad(8, 8, 8, 8, game.gfx.home.i)
   }
 
-  game.object = {}
-  game.object.home = {
-    {3, 3, 3},
-    {2, 1, 2},
-    {0, 0, 4}
-  }
-
   love.resize()
 
   player.load()
@@ -49,22 +42,6 @@ function love.load()
       rt = false,
     }
   }
-end
-
-function draw_object(obj, img, quad, ox, oy)
-  for j = 1, #obj do
-    for i = 1, #obj[j] do
-      local id = obj[j][i]
-      if id > 0 then
-        local x = ox + i * 8
-        local y = oy + j * 8
-        love.graphics.setColor(0, 0, 0)
-        love.graphics.rectangle('fill', x, y, 8, 8)
-        love.graphics.setColor(1, 1, 1)
-        love.graphics.draw(img, quad[id], x, y)
-      end
-    end
-  end
 end
 
 function simple_grid()
@@ -91,15 +68,17 @@ function simple_grid()
 end
 
 function map()
-  local w = math.floor(love.graphics.getWidth() / game.scale)
-  local h = math.floor(love.graphics.getHeight() / game.scale)
+  -- local w = math.floor(love.graphics.getWidth() / game.scale)
+  -- local h = math.floor(love.graphics.getHeight() / game.scale)
+  local w = test_map.width * 8
+  local h = test_map.height * 8
   local canvas = love.graphics.newCanvas(w, h)
   local x = 0
   local y = 0
   
   love.graphics.setCanvas(canvas)
-  for i = 1, #test_map do
-    local c = test_map:sub(i, i)
+  for i = 1, #test_map.string do
+    local c = test_map.string:sub(i, i)
 
     if c == '.' then
       local tile = game.gfx.forest.i
