@@ -7,6 +7,8 @@ function love.load()
     scale = 6,
     time = 0
   }
+
+  test_map = require 'map/test'
   
   game.gfx = {}
   game.gfx.forest = {}
@@ -23,7 +25,7 @@ function love.load()
     love.graphics.newQuad(0, 8, 8, 8, game.gfx.home.i),
     love.graphics.newQuad(8, 8, 8, 8, game.gfx.home.i)
   }
-  
+
   game.object = {}
   game.object.home = {
     {3, 3, 3},
@@ -88,8 +90,45 @@ function simple_grid()
   return canvas
 end
 
+function map()
+  local w = math.floor(love.graphics.getWidth() / game.scale)
+  local h = math.floor(love.graphics.getHeight() / game.scale)
+  local canvas = love.graphics.newCanvas(w, h)
+  local x = 0
+  local y = 0
+  
+  love.graphics.setCanvas(canvas)
+  for i = 1, #test_map do
+    local c = test_map:sub(i, i)
+
+    if c == '.' then
+      local tile = game.gfx.forest.i
+      local quad = game.gfx.forest.q[math.random(2)]
+      love.graphics.draw(tile, quad, x, y)
+      x = x + 8
+    elseif c == 'W' then
+      local tile = game.gfx.home.i
+      local quad = game.gfx.home.q[2]
+      love.graphics.draw(tile, quad, x, y)
+      x = x + 8
+    elseif c == 'D' then
+      local tile = game.gfx.home.i
+      local quad = game.gfx.home.q[1]
+      love.graphics.draw(tile, quad, x, y)
+      x = x + 8
+    elseif c == '\n' then
+      x = 0
+      y = y + 8
+    end
+  end
+  love.graphics.setCanvas()
+
+  return canvas
+end
+
 function love.resize()
-  canvas = simple_grid()
+  -- canvas = simple_grid()
+  canvas = map()
 end
 
 function love.update(dt)
