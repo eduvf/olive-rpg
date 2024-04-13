@@ -1,3 +1,5 @@
+require 'src/player'
+
 function love.load()
   love.graphics.setDefaultFilter('nearest')
 
@@ -31,32 +33,19 @@ function love.load()
 
   love.resize()
 
-  game.player = {
-    x = 0,
-    y = 0,
-    px = 0,
-    py = 0,
-    flip = false
-  }
-  p = game.player
-  p.spr = love.graphics.newImage('gfx/player.png')
-  p.anim = 1
-  p.quad = {
-    love.graphics.newQuad(0, 0, 8, 8, p.spr),
-    love.graphics.newQuad(8, 0, 8, 8, p.spr),
-    love.graphics.newQuad(0, 8, 8, 8, p.spr),
-    love.graphics.newQuad(8, 8, 8, 8, p.spr),
-    love.graphics.newQuad(0, 16, 8, 8, p.spr),
-    love.graphics.newQuad(8, 16, 8, 8, p.spr),
-    love.graphics.newQuad(0, 24, 8, 8, p.spr),
-    love.graphics.newQuad(8, 24, 8, 8, p.spr),
-  }
+  player.load()
 
-  game.input = {
+  input = {
     up = false,
     dn = false,
     lt = false,
     rt = false,
+    prev = {
+      up = false,
+      dn = false,
+      lt = false,
+      rt = false,
+    }
   }
 end
 
@@ -106,62 +95,20 @@ end
 function love.update(dt)
   game.time = game.time + dt
 
-  local up = love.keyboard.isScancodeDown('w', 'up')
-  local dn = love.keyboard.isScancodeDown('s', 'down')
-  local lt = love.keyboard.isScancodeDown('a', 'left')
-  local rt = love.keyboard.isScancodeDown('d', 'right')
+  input.up = love.keyboard.isScancodeDown('w', 'up')
+  input.dn = love.keyboard.isScancodeDown('s', 'down')
+  input.lt = love.keyboard.isScancodeDown('a', 'left')
+  input.rt = love.keyboard.isScancodeDown('d', 'right')
 
-  local x, y = 0, 0
-  if up then y = y - 1 end
-  if dn then y = y + 1 end
-  if lt then x = x - 1 end
-  if rt then x = x + 1 end
+  player.update(dt)
 
-  local dist = 0.5
-  if math.abs(p.px - p.x) < dist and math.abs(p.py - p.y) < dist then
-    if x ~= 0 or y ~= 0 then
-      p.x = p.x + x * 8
-      p.y = p.y + y * 8
-    end
-  else
-    if up and not game.input.up then p.y = p.y - 8 end
-    if dn and not game.input.dn then p.y = p.y + 8 end
-    if lt and not game.input.lt then p.x = p.x - 8 end
-    if rt and not game.input.rt then p.x = p.x + 8 end
-  end
-  p.px = p.px - (p.px - p.x) * dt * 10
-  p.py = p.py - (p.py - p.y) * dt * 10
-
-  if lt then p.flip = true end
-  if rt then p.flip = false end
-
-  game.input.up = up
-  game.input.dn = dn
-  game.input.lt = lt
-  game.input.rt = rt
-
-  if love.keyboard.isScancodeDown('1') then
-    p.anim = 1
-  elseif love.keyboard.isScancodeDown('2') then
-    p.anim = 2
-  elseif love.keyboard.isScancodeDown('3') then
-    p.anim = 3
-  elseif love.keyboard.isScancodeDown('4') then
-    p.anim = 4
-  end
+  input.prev.up = input.up
+  input.prev.dn = input.dn
+  input.prev.lt = input.lt
+  input.prev.rt = input.rt
 end
 
 function love.draw()
   love.graphics.draw(canvas, 0, 0, 0, game.scale)
-  local x = p.px * game.scale
-  local y = p.py * game.scale
-  local anim = math.floor(game.time * 2) % 2 + (p.anim * 2 - 1)
-  local sx, sy = game.scale, game.scale
-  local ox, oy = 0, 0
-  if p.flip then
-    x = x + game.scale
-    sx = sx * -1
-    ox = game.scale
-  end
-  love.graphics.draw(p.spr, p.quad[anim], x, y, 0, sx, sy, ox, oy)
+  player.draw()
 end
