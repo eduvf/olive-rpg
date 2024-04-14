@@ -68,8 +68,6 @@ function simple_grid()
 end
 
 function map()
-  -- local w = math.floor(love.graphics.getWidth() / game.scale)
-  -- local h = math.floor(love.graphics.getHeight() / game.scale)
   local w = test_map.width * 8
   local h = test_map.height * 8
   local canvas = love.graphics.newCanvas(w, h)
