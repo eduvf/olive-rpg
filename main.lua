@@ -12,13 +12,18 @@ function love.load()
 
   game.map = {}
   game.map.width = 0
+  game.map.height = 0
   game.map.layout = {}
   game.map.is_wall = function(x, y)
-    local cell = (x + y * game.map.width) + 1
-    if bit.band(game.map.layout[cell], 0x80) ~= 0 then
-      return true
+    local within_x = 0 <= x and x < game.map.width
+    local within_y = 0 <= y and y < game.map.height
+    if within_x and within_y then
+      local cell = (x + y * game.map.width) + 1
+      if bit.band(game.map.layout[cell], 0x80) == 0 then
+        return false
+      end
     end
-    return false
+    return true
   end
   
   game.gfx = {}
@@ -81,6 +86,7 @@ end
 
 function generate_simple_map()
   game.map.width = test_map.width
+  game.map.height = test_map.height
   local cells = {
     ['.'] = string.byte('.'),
     ['D'] = string.byte('D'),
