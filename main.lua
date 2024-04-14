@@ -13,6 +13,13 @@ function love.load()
   game.map = {}
   game.map.width = 0
   game.map.layout = {}
+  game.map.is_wall = function(x, y)
+    local cell = (x + y * game.map.width) + 1
+    if bit.band(game.map.layout[cell], 0x80) ~= 0 then
+      return true
+    end
+    return false
+  end
   
   game.gfx = {}
   game.gfx.forest = {}

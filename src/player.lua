@@ -25,6 +25,7 @@ end
 
 function player.update(dt)
   local x, y = 0, 0
+  local dx, dy = 0, 0
 
   if input.lt then x = x - 1 end
   if input.rt then x = x + 1 end
@@ -36,14 +37,21 @@ function player.update(dt)
   local dist_y = math.abs(player.py - player.y * 8)
   if dist_x < dist and dist_y < dist then
     if x ~= 0 or y ~= 0 then
-      player.x = player.x + x
-      player.y = player.y + y
+      dx = dx + x
+      dy = dy + y
     end
   else
-    if input.lt and not input.prev.lt then player.x = player.x - 1 end
-    if input.rt and not input.prev.rt then player.x = player.x + 1 end
-    if input.up and not input.prev.up then player.y = player.y - 1 end
-    if input.dn and not input.prev.dn then player.y = player.y + 1 end
+    if input.lt and not input.prev.lt then dx = dx - 1 end
+    if input.rt and not input.prev.rt then dx = dx + 1 end
+    if input.up and not input.prev.up then dy = dy - 1 end
+    if input.dn and not input.prev.dn then dy = dy + 1 end
+  end
+
+  if dx ~= 0 or dy ~= 0 then
+    if not game.map.is_wall(player.x + dx, player.y + dy) then
+      player.x = player.x + dx
+      player.y = player.y + dy
+    end
   end
 
   local diff = dt * 10
