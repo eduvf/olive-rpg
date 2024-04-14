@@ -1,6 +1,8 @@
 player = {
+  -- cells
   x = 0,
   y = 0,
+  -- pixels
   px = 0,
   py = 0,
   flip = false,
@@ -30,23 +32,23 @@ function player.update(dt)
   if input.dn then y = y + 1 end
 
   local dist = 0.5
-  local dist_x = math.abs(player.px - player.x)
-  local dist_y = math.abs(player.py - player.y)
+  local dist_x = math.abs(player.px - player.x * 8)
+  local dist_y = math.abs(player.py - player.y * 8)
   if dist_x < dist and dist_y < dist then
     if x ~= 0 or y ~= 0 then
-      player.x = player.x + x * 8
-      player.y = player.y + y * 8
+      player.x = player.x + x
+      player.y = player.y + y
     end
   else
-    if input.lt and not input.prev.lt then player.x = player.x - 8 end
-    if input.rt and not input.prev.rt then player.x = player.x + 8 end
-    if input.up and not input.prev.up then player.y = player.y - 8 end
-    if input.dn and not input.prev.dn then player.y = player.y + 8 end
+    if input.lt and not input.prev.lt then player.x = player.x - 1 end
+    if input.rt and not input.prev.rt then player.x = player.x + 1 end
+    if input.up and not input.prev.up then player.y = player.y - 1 end
+    if input.dn and not input.prev.dn then player.y = player.y + 1 end
   end
 
   local diff = dt * 10
-  player.px = player.px - (player.px - player.x) * diff
-  player.py = player.py - (player.py - player.y) * diff
+  player.px = player.px - (player.px - player.x * 8) * diff
+  player.py = player.py - (player.py - player.y * 8) * diff
 
   if input.lt then player.flip = true end
   if input.rt then player.flip = false end
