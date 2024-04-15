@@ -51,6 +51,9 @@ function player.update(dt)
     if not game.map.is_wall(player.x + dx, player.y + dy) then
       player.x = player.x + dx
       player.y = player.y + dy
+    else
+      player.px = player.px + dx * 4
+      player.py = player.py + dy * 4
     end
   end
 
