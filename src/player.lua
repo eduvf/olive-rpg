@@ -57,7 +57,7 @@ function player.update(dt)
     end
   end
 
-  local diff = dt * 10
+  local diff = dt * 6
   player.px = player.px - (player.px - player.x * 8) * diff
   player.py = player.py - (player.py - player.y * 8) * diff
 
