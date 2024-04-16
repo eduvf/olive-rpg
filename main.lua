@@ -95,6 +95,10 @@ function generate_simple_map()
     ['.'] = string.byte('.'),
     ['D'] = string.byte('D'),
     ['W'] = string.byte('W') + 0x80,
+    ['1'] = string.byte('1') + 0x80 + 0x100,
+    ['2'] = string.byte('2') + 0x80 + 0x100,
+    ['3'] = string.byte('3') + 0x80 + 0x100,
+    ['4'] = string.byte('4') + 0x80 + 0x100,
   }
   
   local offset = 0
@@ -130,6 +134,9 @@ function simple_map_canvas()
     elseif cell == 'D' then
       tile = game.gfx.home.i
       quad = game.gfx.home.q[1]
+    elseif cell:gmatch('%d') then
+      tile = game.gfx.forest.i
+      quad = game.gfx.forest.q[5]
     end
 
     local x = (i - 1) % game.map.width
