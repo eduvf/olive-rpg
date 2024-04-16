@@ -27,9 +27,11 @@ function love.load()
   end
   game.map.check_panel = function(x, y)
     local cell = (x + y * game.map.width) + 1
-    local char = string.char(bit.band(game.map.layout[cell], 0x7F))
-    if char:gmatch('%d') then
-      local message = game.map.panel[tonumber(char)]
+    local char = game.map.layout[cell]
+    char = bit.band(char, 0xF00)
+    char = bit.rshift(char, 8)
+    if char ~= 0 then
+      local message = game.map.panel[char]
       print(message)
     end
   end
@@ -105,9 +107,9 @@ function generate_simple_map()
     ['D'] = string.byte('D'),
     ['W'] = string.byte('W') + 0x80,
     ['1'] = string.byte('1') + 0x80 + 0x100,
-    ['2'] = string.byte('2') + 0x80 + 0x100,
-    ['3'] = string.byte('3') + 0x80 + 0x100,
-    ['4'] = string.byte('4') + 0x80 + 0x100,
+    ['2'] = string.byte('2') + 0x80 + 0x200,
+    ['3'] = string.byte('3') + 0x80 + 0x300,
+    ['4'] = string.byte('4') + 0x80 + 0x400,
   }
   
   local offset = 0
