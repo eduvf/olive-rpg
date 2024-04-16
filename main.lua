@@ -25,6 +25,14 @@ function love.load()
     end
     return true
   end
+  game.map.check_panel = function(x, y)
+    local cell = (x + y * game.map.width) + 1
+    local char = string.char(bit.band(game.map.layout[cell], 0x7F))
+    if char:gmatch('%d') then
+      local message = game.map.panel[tonumber(char)]
+      print(message)
+    end
+  end
   
   game.gfx = {}
   game.gfx.forest = {}
@@ -91,6 +99,7 @@ end
 function generate_simple_map()
   game.map.width = test_map.width
   game.map.height = test_map.height
+  game.map.panel = test_map.panel
   local cells = {
     ['.'] = string.byte('.'),
     ['D'] = string.byte('D'),
