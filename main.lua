@@ -134,11 +134,9 @@ function simple_map_canvas()
 
     if cell == '.' then
       tile = game.gfx.forest.i
-      if math.random() > 0.5 then
-        quad = game.gfx.forest.q[1]
-      else
-        quad = game.gfx.forest.q[3]
-      end
+      local rand = math.floor(math.random() * 10) + 1
+      local idxs = {1, 1, 1, 1, 3, 3, 3, 2, 4, 6}
+      quad = game.gfx.forest.q[idxs[rand]]
     elseif cell == 'W' then
       tile = game.gfx.home.i
       quad = game.gfx.home.q[2]
