@@ -14,10 +14,13 @@ function love.load()
   game.map.width = 0
   game.map.height = 0
   game.map.layout = {}
-  game.map.is_wall = function(x, y)
+  game.map.within_boundaries = function(x, y)
     local within_x = 0 <= x and x < game.map.width
     local within_y = 0 <= y and y < game.map.height
-    if within_x and within_y then
+    return within_x and within_y
+  end
+  game.map.is_wall = function(x, y)
+    if game.map.within_boundaries(x, y) then
       local cell = (x + y * game.map.width) + 1
       if bit.band(game.map.layout[cell], 0x80) == 0 then
         return false
@@ -26,13 +29,15 @@ function love.load()
     return true
   end
   game.map.check_panel = function(x, y)
-    local cell = (x + y * game.map.width) + 1
-    local char = game.map.layout[cell]
-    char = bit.band(char, 0xF00)
-    char = bit.rshift(char, 8)
-    if char ~= 0 then
-      local message = game.map.panel[char]
-      print(message)
+    if game.map.within_boundaries(x, y) then
+      local cell = (x + y * game.map.width) + 1
+      local char = game.map.layout[cell]
+      char = bit.band(char, 0xF00)
+      char = bit.rshift(char, 8)
+      if char ~= 0 then
+        local message = game.map.panel[char]
+        print(message)
+      end
     end
   end
   
