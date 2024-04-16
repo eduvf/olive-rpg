@@ -31,7 +31,11 @@ function love.load()
   game.gfx.forest.i = love.graphics.newImage('gfx/forest.png')
   game.gfx.forest.q = {
     love.graphics.newQuad(0, 0, 8, 8, game.gfx.forest.i),
-    love.graphics.newQuad(8, 0, 8, 8, game.gfx.forest.i)
+    love.graphics.newQuad(8, 0, 8, 8, game.gfx.forest.i),
+    love.graphics.newQuad(0, 8, 8, 8, game.gfx.forest.i),
+    love.graphics.newQuad(8, 8, 8, 8, game.gfx.forest.i),
+    love.graphics.newQuad(0, 16, 8, 8, game.gfx.forest.i),
+    love.graphics.newQuad(8, 16, 8, 8, game.gfx.forest.i),
   }
   game.gfx.home = {}
   game.gfx.home.i = love.graphics.newImage('gfx/home.png')
@@ -115,7 +119,11 @@ function simple_map_canvas()
 
     if cell == '.' then
       tile = game.gfx.forest.i
-      quad = game.gfx.forest.q[math.random(2)]
+      if math.random() > 0.5 then
+        quad = game.gfx.forest.q[1]
+      else
+        quad = game.gfx.forest.q[3]
+      end
     elseif cell == 'W' then
       tile = game.gfx.home.i
       quad = game.gfx.home.q[2]
