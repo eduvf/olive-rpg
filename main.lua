@@ -41,7 +41,7 @@ function love.load()
       char = bit.rshift(char, 8)
       if char ~= 0 then
         local message = game.map.panel[char]
-        print(message)
+        print(message.." x"..x.." y"..y)
       end
     end
   end
