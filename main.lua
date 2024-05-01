@@ -7,6 +7,11 @@ function love.load()
     scale = 6,
     time = 0
   }
+  game.cam = {
+    x = 0,
+    y = 0,
+    diff = 0.05
+  }
 
   test_map = require 'map/test'
 
@@ -182,9 +187,18 @@ function love.update(dt)
   input.prev.dn = input.dn
   input.prev.lt = input.lt
   input.prev.rt = input.rt
+
+  local half_tile = 4 * game.scale -- assuming a tile is 8x8
+  local center_x = love.graphics.getWidth() / 2 - half_tile
+  local center_y = love.graphics.getHeight() / 2 - half_tile
+  local target_cam_x = (center_x - player.px * game.scale)
+  local target_cam_y = (center_y - player.py * game.scale)
+  game.cam.x = game.cam.x - (game.cam.x - target_cam_x) * game.cam.diff
+  game.cam.y = game.cam.y - (game.cam.y - target_cam_y) * game.cam.diff
 end
 
 function love.draw()
+  love.graphics.translate(game.cam.x, game.cam.y)
   love.graphics.draw(canvas, 0, 0, 0, game.scale)
   player.draw()
 end
