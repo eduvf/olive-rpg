@@ -13,6 +13,22 @@ function love.load()
     diff = 0.05
   }
 
+  game.message = {}
+  game.message.queue = {}
+  game.message.add_message = function(text, x, y)
+    table.insert(game.message.queue, {
+      text = text,
+      x = x * 8 * game.scale,
+      y = y * 8 * game.scale
+    })
+  end
+  game.message.display_messages = function()
+    for m = 1, #game.message.queue do
+      local message = game.message.queue[m]
+      love.graphics.print(message.text, message.x, message.y)
+    end
+  end
+
   test_map = require 'map/test'
 
   game.map = {}
@@ -42,6 +58,7 @@ function love.load()
       if char ~= 0 then
         local message = game.map.panel[char]
         print(message.." x"..x.." y"..y)
+        game.message.add_message(message, x, y)
       end
     end
   end
@@ -201,4 +218,5 @@ function love.draw()
   love.graphics.translate(game.cam.x, game.cam.y)
   love.graphics.draw(canvas, 0, 0, 0, game.scale)
   player.draw()
+  game.message.display_messages()
 end
