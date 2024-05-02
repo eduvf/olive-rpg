@@ -20,7 +20,8 @@ function love.load()
       text = text,
       x = x * 8 * game.scale,
       y = y * 8 * game.scale,
-      duration = 100
+      duration = 100,
+      total_duration = 100
     })
   end
   game.message.update_messages = function()
@@ -38,8 +39,15 @@ function love.load()
   game.message.display_messages = function()
     for m = 1, #game.message.queue do
       local message = game.message.queue[m]
-      love.graphics.print(message.text, message.x, message.y)
+      local total = message.total_duration * 0.5
+      local alpha = 1
+      if message.duration < total then
+        alpha = message.duration / total
+      end
+      love.graphics.setColor(1, 1, 1, alpha)
+      love.graphics.print(message.text, message.x, message.y, 0, 2)
     end
+    love.graphics.setColor(1, 1, 1)
   end
 
   test_map = require 'map/test'
