@@ -19,8 +19,21 @@ function love.load()
     table.insert(game.message.queue, {
       text = text,
       x = x * 8 * game.scale,
-      y = y * 8 * game.scale
+      y = y * 8 * game.scale,
+      duration = 100
     })
+  end
+  game.message.update_messages = function()
+    local m = 1
+    while m <= #game.message.queue do
+      local message = game.message.queue[m]
+      if message.duration <= 0 then
+        table.remove(game.message.queue, m)
+      else
+        game.message.queue[m].duration = message.duration - 1
+        m = m + 1
+      end
+    end
   end
   game.message.display_messages = function()
     for m = 1, #game.message.queue do
@@ -212,6 +225,8 @@ function love.update(dt)
   local target_cam_y = (center_y - player.py * game.scale)
   game.cam.x = game.cam.x - (game.cam.x - target_cam_x) * game.cam.diff
   game.cam.y = game.cam.y - (game.cam.y - target_cam_y) * game.cam.diff
+
+  game.message.update_messages()
 end
 
 function love.draw()
