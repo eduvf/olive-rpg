@@ -13,8 +13,8 @@ map.string = [[
 ................................
 ]]
 map.panel = {
-  'Welcome!',
-  'Home sweet home'
+  'welcome!',
+  'home sweet home?'
 }
 
 return map
