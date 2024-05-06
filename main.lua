@@ -103,6 +103,12 @@ function love.load()
     love.graphics.newQuad(0, 8, 8, 8, game.gfx.home.i),
     love.graphics.newQuad(8, 8, 8, 8, game.gfx.home.i)
   }
+
+  game.font = love.graphics.newImageFont('gfx/font.png',
+    " abcdefghijklmnopqrstuvwxyz",
+    1
+  )
+  love.graphics.setFont(game.font)
   
   generate_simple_map()
   love.resize()
