@@ -41,14 +41,18 @@ function love.load()
       local message = game.message.queue[m]
       local total = message.total_duration * 0.5
       local alpha = 1
-      local width = game.font:getWidth(message.text) * 5
-      local x = message.x - width / 2
+      local width = game.font:getWidth(message.text) * game.scale
+      local x = message.x - width / 2 + game.scale * 4
       local y = message.y - game.scale * 2
+      local bg_x = x - game.scale
+      local bg_y = y - game.scale
+      local bg_w = width + game.scale
+      local bg_h = game.font:getHeight() * game.scale
       if message.duration < total then
         alpha = message.duration / total
       end
-      -- love.graphics.setColor(29 / 256, 43 / 256, 83 / 256)
-      -- love.graphics.rectangle('fill', x, y, width, game.font:getHeight() * game.scale)
+      love.graphics.setColor(29 / 256, 43 / 256, 83 / 256, alpha)
+      love.graphics.rectangle('fill', bg_x, bg_y, bg_w, bg_h)
       love.graphics.setColor(1, 1, 1, alpha)
       love.graphics.print(message.text, x, y, 0, game.scale)
     end
@@ -83,7 +87,7 @@ function love.load()
       char = bit.rshift(char, 8)
       if char ~= 0 then
         local message = game.map.panel[char]
-        print(message.." x"..x.." y"..y)
+        -- print(message.." x"..x.." y"..y)
         game.message.add_message(message, x, y)
       end
     end
