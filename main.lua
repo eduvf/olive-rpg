@@ -114,7 +114,8 @@ function love.load()
   }
 
   game.font = love.graphics.newImageFont('gfx/font.png',
-    " abcdefghijklmnopqrstuvwxyz.!?",
+    " ABCDEFGHIJKLMNOPQRSTUVWXYZ" ..
+    "abcdefghijklmnopqrstuvwxyz.!?",
     1
   )
   love.graphics.setFont(game.font)
