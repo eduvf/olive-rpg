@@ -84,5 +84,11 @@ function player.draw()
     ox = game.scale
   end
 
+  love.graphics.setColor(0, 0, 0, 0.5)
+  local rect_scale = 8 * game.scale
+  local rect_x = player.x * rect_scale
+  local rect_y = player.y * rect_scale
+  love.graphics.rectangle('fill', rect_x, rect_y, rect_scale, rect_scale)
+  love.graphics.setColor(1, 1, 1)
   love.graphics.draw(player.image, player.quad[frame], x, y, 0, sx, sy, ox, oy)
 end
