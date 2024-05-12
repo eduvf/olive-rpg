@@ -94,26 +94,6 @@ function love.load()
       end
     end
   end
-  
-  game.gfx = {}
-  game.gfx.forest = {}
-  game.gfx.forest.i = love.graphics.newImage('gfx/forest.png')
-  game.gfx.forest.q = {
-    love.graphics.newQuad(0, 0, 8, 8, game.gfx.forest.i),
-    love.graphics.newQuad(8, 0, 8, 8, game.gfx.forest.i),
-    love.graphics.newQuad(0, 8, 8, 8, game.gfx.forest.i),
-    love.graphics.newQuad(8, 8, 8, 8, game.gfx.forest.i),
-    love.graphics.newQuad(0, 16, 8, 8, game.gfx.forest.i),
-    love.graphics.newQuad(8, 16, 8, 8, game.gfx.forest.i),
-  }
-  game.gfx.home = {}
-  game.gfx.home.i = love.graphics.newImage('gfx/home.png')
-  game.gfx.home.q = {
-    love.graphics.newQuad(0, 0, 8, 8, game.gfx.home.i),
-    love.graphics.newQuad(8, 0, 8, 8, game.gfx.home.i),
-    love.graphics.newQuad(0, 8, 8, 8, game.gfx.home.i),
-    love.graphics.newQuad(8, 8, 8, 8, game.gfx.home.i)
-  }
 
   game.font = love.graphics.newImageFont('gfx/font.png',
     " !\"#$%&'()*+,-./" ..
@@ -128,8 +108,6 @@ function love.load()
   
   generate_simple_map()
   canvas = simple_map_canvas()
-
-  player.load()
 
   input = {
     up = false,

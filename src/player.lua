@@ -9,9 +9,6 @@ player = {
   anim = 1
 }
 
-function player.load()
-end
-
 function player.update(dt)
   local x, y = 0, 0
   local dx, dy = 0, 0

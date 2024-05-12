@@ -1,4 +1,4 @@
-local img = love.graphics.newImage('gfx.png')
+local img = love.graphics.newImage('gfx/gfx.png')
 local quad = {}
 
 local w = img:getWidth()
