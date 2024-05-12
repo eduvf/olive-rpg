@@ -13,6 +13,8 @@ function love.load()
     diff = 0.05
   }
 
+  require 'src/gfx'
+
   game.message = {}
   game.message.queue = {}
   game.message.add_message = function(text, x, y)
@@ -197,29 +199,28 @@ function simple_map_canvas()
   
   love.graphics.setCanvas(canvas)
   for i = 1, #game.map.layout do
-    local tile, quad
     local cell = string.char(bit.band(game.map.layout[i], 0x7F))
 
+    local s = GRASS1
     if cell == '.' then
-      tile = game.gfx.forest.i
-      local rand = math.floor(math.random() * 10) + 1
-      local idxs = {1, 1, 1, 1, 3, 3, 3, 2, 4, 6}
-      quad = game.gfx.forest.q[idxs[rand]]
+      local flowers = {FLOWER1, FLOWER2, FLOWER3}
+      if math.random() > 0.5 then
+        s = GRASS2
+      elseif math.random() > 0.5 then
+        s = flowers[math.floor(math.random() * #flowers) + 1]
+      end
     elseif cell == 'W' then
-      tile = game.gfx.home.i
-      quad = game.gfx.home.q[2]
+      s = WALL
     elseif cell == 'D' then
-      tile = game.gfx.home.i
-      quad = game.gfx.home.q[1]
+      s = DOOR
     elseif cell:gmatch('%d') then
-      tile = game.gfx.forest.i
-      quad = game.gfx.forest.q[5]
+      s = SIGN
     end
 
     local x = (i - 1) % game.map.width
     local y = math.floor((i - 1) / game.map.width)
 
-    love.graphics.draw(tile, quad, x * 8, y * 8)
+    spr(s, x * 8, y * 8)
   end
   love.graphics.setCanvas()
 
