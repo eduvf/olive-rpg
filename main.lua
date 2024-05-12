@@ -127,7 +127,7 @@ function love.load()
   love.graphics.setFont(game.font)
   
   generate_simple_map()
-  love.resize()
+  canvas = simple_map_canvas()
 
   player.load()
 
@@ -202,10 +202,6 @@ function simple_map_canvas()
   love.graphics.setCanvas()
 
   return canvas
-end
-
-function love.resize()
-  canvas = simple_map_canvas()
 end
 
 function love.update(dt)
