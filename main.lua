@@ -145,29 +145,6 @@ function love.load()
   }
 end
 
-function simple_grid()
-  local w = math.floor(love.graphics.getWidth() / game.scale)
-  local h = math.floor(love.graphics.getHeight() / game.scale)
-  local canvas = love.graphics.newCanvas(w, h)
-
-  love.graphics.setCanvas(canvas)
-  local tile = game.gfx.forest.i
-  local quad = game.gfx.forest.q
-  for x = 0, w, 8 do
-    for y = 0, h, 8 do
-      local q = quad[1]
-      if math.random() > 0.5 then
-        q = quad[math.random(2)]
-      end
-      love.graphics.draw(tile, q, x, y)
-    end
-  end
-  draw_object(game.object.home, game.gfx.home.i, game.gfx.home.q, 8, 8)
-  love.graphics.setCanvas()
-
-  return canvas
-end
-
 function generate_simple_map()
   game.map.width = test_map.width
   game.map.height = test_map.height
@@ -228,7 +205,6 @@ function simple_map_canvas()
 end
 
 function love.resize()
-  -- canvas = simple_grid()
   canvas = simple_map_canvas()
 end
 
