@@ -45,7 +45,7 @@ function love.load()
       local x = message.x - width / 2 + game.scale * 4
       local y = message.y - game.scale * 2
       local bg_x = x - game.scale
-      local bg_y = y - game.scale
+      local bg_y = y
       local bg_w = width + game.scale
       local bg_h = game.font:getHeight() * game.scale
       if message.duration < total then
@@ -114,8 +114,12 @@ function love.load()
   }
 
   game.font = love.graphics.newImageFont('gfx/font.png',
-    " ABCDEFGHIJKLMNOPQRSTUVWXYZ" ..
-    "abcdefghijklmnopqrstuvwxyz.!?",
+    " !\"#$%&'()*+,-./" ..
+    "0123456789:;<=>?" ..
+    "@ABCDEFGHIJKLMNO" ..
+    "PQRSTUVWXYZ[\\]^_" ..
+    "`abcdefghijklmno" ..
+    "pqrstuvwxyz{|}~",
     1
   )
   love.graphics.setFont(game.font)
