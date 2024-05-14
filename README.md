@@ -1,4 +1,4 @@
-# 🫒 olive RPG
+# 🫒 olivo RPG
 
 Ideas to implement:
 
