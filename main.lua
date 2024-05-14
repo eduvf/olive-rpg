@@ -14,6 +14,7 @@ function love.load()
   }
 
   require 'src/gfx'
+  require 'src/chr'
 
   game.message = {}
   game.message.queue = {}
