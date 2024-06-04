@@ -1,4 +1,4 @@
-# 🫒 olivo RPG
+# 🫒 olea RPG
 
 Ideas to implement:
 
