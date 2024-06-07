@@ -20,10 +20,15 @@ function love.load()
 end
 
 function love.keypressed(_, scancode)
-  if scancode == 'w' then game.player.y = game.player.y - 1 end
-  if scancode == 's' then game.player.y = game.player.y + 1 end
-  if scancode == 'a' then game.player.x = game.player.x - 1 end
-  if scancode == 'd' then game.player.x = game.player.x + 1 end
+  local x, y = 0, 0
+  if scancode == 'w' or scancode == 'up' then y = y - 1 end
+  if scancode == 's' or scancode == 'down' then y = y + 1 end
+  if scancode == 'a' or scancode == 'left' then x = x - 1 end
+  if scancode == 'd' or scancode == 'right' then x = x + 1 end
+
+  game.player.flip = x == 0 and game.player.flip or x < 0
+  game.player.x = game.player.x + x
+  game.player.y = game.player.y + y
 end
 
 function love.update(dt)
