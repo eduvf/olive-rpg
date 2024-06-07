@@ -14,6 +14,7 @@ function love.load()
   }
 
   love.graphics.setDefaultFilter('nearest')
+  require('src/id')
   require('src/lib')
 
   map()
@@ -29,6 +30,11 @@ function love.keypressed(_, scancode)
   game.player.flip = x == 0 and game.player.flip or x < 0
   game.player.x = game.player.x + x
   game.player.y = game.player.y + y
+
+  if scancode == '1' then game.player.sprite = ID.CHARACTER_1 end
+  if scancode == '2' then game.player.sprite = ID.CHARACTER_2 end
+  if scancode == '3' then game.player.sprite = ID.CHARACTER_3 end
+  if scancode == '4' then game.player.sprite = ID.CHARACTER_4 end
 end
 
 function love.update(dt)
