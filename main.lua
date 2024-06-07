@@ -15,6 +15,9 @@ function love.load()
 
       ground = {},
       crops = {}
+    },
+    cam = {
+      x = 0, y = 0
     }
   }
 
@@ -50,9 +53,15 @@ function love.update(dt)
 
   game.player.px = game.player.px + ((game.player.x * 8 * game.scale) - game.player.px) * 0.2
   game.player.py = game.player.py + ((game.player.y * 8 * game.scale) - game.player.py) * 0.2
+
+  local center_x = math.floor(love.graphics.getWidth() / 2) - 8 * game.scale
+  local center_y = math.floor(love.graphics.getHeight() / 2) - 8 * game.scale
+  game.cam.x = game.cam.x + (center_x - game.player.px - game.cam.x) * 0.08
+  game.cam.y = game.cam.y + (center_y - game.player.py - game.cam.y) * 0.08
 end
 
 function love.draw()
+  love.graphics.translate(game.cam.x, game.cam.y)
   love.graphics.draw(game.map.canvas, 0, 0, 0, game.scale)
 
   local n = game.player.sprite + math.floor(game.time % 2)
