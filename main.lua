@@ -9,7 +9,10 @@ function love.load()
       flip = false
     },
     map = {
-      canvas = nil
+      canvas = nil,
+      width = 16,
+      height = 9,
+      tiles = {}
     }
   }
 
@@ -30,6 +33,8 @@ function love.keypressed(_, scancode)
   game.player.flip = x == 0 and game.player.flip or x < 0
   game.player.x = game.player.x + x
   game.player.y = game.player.y + y
+
+  if scancode == 'space' then action() end
 
   if scancode == '1' then game.player.sprite = ID.CHARACTER_1 end
   if scancode == '2' then game.player.sprite = ID.CHARACTER_2 end
