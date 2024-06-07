@@ -23,11 +23,17 @@ function map()
   love.graphics.setCanvas(game.map.canvas)
   for y = 0, game.map.height do
     for x = 0, game.map.width do
-      if game.map.tiles[(x + y * game.map.width) + 1] then
-        sprite(game.map.tiles[(x + y * game.map.width) + 1], x * 8, y * 8)
+      if game.map.ground[(x + y * game.map.width) + 1] then
+        sprite(game.map.ground[(x + y * game.map.width) + 1], x * 8, y * 8)
       else
-        table.insert(game.map.tiles, ID.GRASS_1)
+        table.insert(game.map.ground, ID.GRASS_1)
         sprite(ID.GRASS_1, x * 8, y * 8)
+      end
+
+      if game.map.crops[(x + y * game.map.width) + 1] then
+        sprite(game.map.crops[(x + y * game.map.width) + 1], x * 8, y * 8)
+      else
+        table.insert(game.map.crops, nil)
       end
     end
   end
@@ -36,11 +42,15 @@ end
 
 function action()
   local tile = (game.player.x + game.player.y * game.map.width) + 1
-  local id = game.map.tiles[tile]
+  local id = game.map.ground[tile]
+  local crop = game.map.crops[tile]
+
   if id == ID.GRASS_1 then
-    game.map.tiles[tile] = ID.SOIL_DRY
+    game.map.ground[tile] = ID.SOIL_DRY
+  elseif not crop then
+    game.map.crops[tile] = ID.CROP_WHEAT
   elseif id == ID.SOIL_DRY then
-    game.map.tiles[tile] = ID.SOIL_WET
+    game.map.ground[tile] = ID.SOIL_WET
   end
   map()
   print(tile)

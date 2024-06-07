@@ -12,7 +12,9 @@ function love.load()
       canvas = nil,
       width = 16,
       height = 9,
-      tiles = {}
+
+      ground = {},
+      crops = {}
     }
   }
 
