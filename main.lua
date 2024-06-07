@@ -37,6 +37,7 @@ function love.keypressed(_, scancode)
   game.player.y = game.player.y + y
 
   if scancode == 'space' then action() end
+  if scancode == 'n' then day() end
 
   if scancode == '1' then game.player.sprite = ID.CHARACTER_1 end
   if scancode == '2' then game.player.sprite = ID.CHARACTER_2 end

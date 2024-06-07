@@ -53,5 +53,21 @@ function action()
     game.map.ground[tile] = ID.SOIL_WET
   end
   map()
-  print(tile)
+end
+
+function day()
+  for n = 1, #game.map.ground do
+    local crop_id = game.map.crops[n]
+    local watered = game.map.ground[n] == ID.SOIL_WET
+
+    if watered then
+      game.map.ground[n] = ID.SOIL_DRY
+
+      if crop_id ~= ID.CROP_WHEAT_DONE then
+        game.map.crops[n] = crop_id + 1
+      end
+    end
+  end
+  map()
+  print('next day')
 end
