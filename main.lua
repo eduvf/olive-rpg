@@ -18,7 +18,8 @@ function love.load()
     },
     cam = {
       x = 0, y = 0
-    }
+    },
+    popup = {}
   }
 
   love.graphics.setDefaultFilter('nearest')
@@ -42,6 +43,8 @@ function love.keypressed(_, scancode)
   if scancode == 'space' then action() end
   if scancode == 'n' then day() end
 
+  if scancode == 'p' then popup(ID.ITEM_WHEAT) end
+
   if scancode == '1' then game.player.sprite = ID.CHARACTER_1 end
   if scancode == '2' then game.player.sprite = ID.CHARACTER_2 end
   if scancode == '3' then game.player.sprite = ID.CHARACTER_3 end
@@ -58,6 +61,8 @@ function love.update(dt)
   local center_y = math.floor(love.graphics.getHeight() / 2) - 8 * game.scale
   game.cam.x = game.cam.x + (center_x - game.player.px - game.cam.x) * 0.08
   game.cam.y = game.cam.y + (center_y - game.player.py - game.cam.y) * 0.08
+
+  update_popup()
 end
 
 function love.draw()
@@ -66,5 +71,7 @@ function love.draw()
 
   local n = game.player.sprite + math.floor(game.time % 2)
   sprite(n, game.player.px, game.player.py, game.scale, game.player.flip)
+
+  draw_popup()
   love.graphics.origin()
 end

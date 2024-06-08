@@ -71,3 +71,31 @@ function day()
   map()
   print('next day')
 end
+
+function popup(id)
+  table.insert(game.popup, {
+    id = id,
+    dur = 50,
+    x = game.player.x * 8 * game.scale,
+    y = game.player.y * 8 * game.scale - 4 * game.scale,
+    oy = game.player.y * 8 * game.scale - 8 * game.scale
+  })
+end
+
+function update_popup()
+  for i, p in pairs(game.popup) do
+    if p.dur == 0 then
+      table.remove(game.popup, i)
+      break
+    end
+
+    game.popup[i].y = p.y + (p.oy - p.y) * 0.1
+    game.popup[i].dur = p.dur - 1
+  end
+end
+
+function draw_popup()
+  for _, p in pairs(game.popup) do
+    sprite(p.id, p.x, p.y, game.scale)
+  end
+end

@@ -13,6 +13,7 @@ ID = {
   FLOOR_2 = 6+8,
   SOIL_DRY = 3+8*2,
   SOIL_WET = 3+8*3,
+  ITEM_WHEAT = 7,
   CROP_WHEAT = 4+8*2,
   CROP_WHEAT_DONE = 8+8*2
 }
