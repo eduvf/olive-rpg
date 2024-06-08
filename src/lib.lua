@@ -49,6 +49,9 @@ function action()
     game.map.ground[tile] = ID.SOIL_DRY
   elseif not crop then
     game.map.crops[tile] = ID.CROP_WHEAT
+  elseif crop == ID.CROP_WHEAT_DONE then
+    game.map.crops[tile] = nil
+    popup(ID.ITEM_WHEAT)
   elseif id == ID.SOIL_DRY then
     game.map.ground[tile] = ID.SOIL_WET
   end
