@@ -66,4 +66,5 @@ function love.draw()
 
   local n = game.player.sprite + math.floor(game.time % 2)
   sprite(n, game.player.px, game.player.py, game.scale, game.player.flip)
+  love.graphics.origin()
 end
