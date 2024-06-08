@@ -6,7 +6,9 @@ function love.load()
       sprite = 1,
       x = 0, y = 0,
       px = 0, py = 0,
-      flip = false
+      flip = false,
+      inv = {7, 7+8},
+      show_inv = false
     },
     map = {
       canvas = nil,
@@ -44,6 +46,7 @@ function love.keypressed(_, scancode)
   if scancode == 'n' then day() end
 
   if scancode == 'p' then popup(ID.ITEM_WHEAT) end
+  if scancode == 'i' then game.player.show_inv = not game.player.show_inv end
 
   if scancode == '1' then game.player.sprite = ID.CHARACTER_1 end
   if scancode == '2' then game.player.sprite = ID.CHARACTER_2 end
@@ -73,5 +76,7 @@ function love.draw()
   sprite(n, game.player.px, game.player.py, game.scale, game.player.flip)
 
   draw_popup()
+
   love.graphics.origin()
+  if game.player.show_inv then draw_inventory() end
 end

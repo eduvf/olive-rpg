@@ -102,3 +102,13 @@ function draw_popup()
     sprite(p.id, p.x, p.y, game.scale)
   end
 end
+
+function add_to_inventory(id)
+  table.insert(game.player.inv, id)
+end
+
+function draw_inventory()
+  for i, item in pairs(game.player.inv) do
+    sprite(item, (i-1)*8*game.scale, 0, game.scale)
+  end
+end
