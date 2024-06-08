@@ -52,6 +52,7 @@ function action()
   elseif crop == ID.CROP_WHEAT_DONE then
     game.map.crops[tile] = nil
     popup(ID.ITEM_WHEAT)
+    add_to_inventory(ID.ITEM_WHEAT)
   elseif id == ID.SOIL_DRY then
     game.map.ground[tile] = ID.SOIL_WET
   end
