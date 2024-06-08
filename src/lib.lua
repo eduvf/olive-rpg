@@ -110,6 +110,10 @@ end
 
 function draw_inventory()
   for i, item in pairs(game.player.inv) do
-    sprite(item, (i-1)*8*game.scale, 0, game.scale)
+    local x = (i - 1) * 8 * game.scale
+    love.graphics.setColor(0, 0, 0, 0.75)
+    love.graphics.rectangle('fill', x, 0, 8 * game.scale, 8 * game.scale)
+    love.graphics.setColor(1, 1, 1)
+    sprite(item, x, 0, game.scale)
   end
 end
