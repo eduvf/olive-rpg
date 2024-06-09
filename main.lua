@@ -1,4 +1,6 @@
 function love.load()
+  require('src/id')
+  
   game = {
     time = 0,
     scale = 6,
@@ -7,7 +9,7 @@ function love.load()
       x = 0, y = 0,
       px = 0, py = 0,
       flip = false,
-      inv = {8, 8, 8+8, 8+8},
+      inv = {ID.SEED_WHEAT, ID.SEED_WHEAT, ID.SEED_TOMATO, ID.SEED_TOMATO},
       inv_cur = 1,
       show_inv = false
     },
@@ -26,7 +28,6 @@ function love.load()
   }
 
   love.graphics.setDefaultFilter('nearest')
-  require('src/id')
   require('src/lib')
 
   map()
