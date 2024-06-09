@@ -115,5 +115,9 @@ function draw_inventory()
     love.graphics.rectangle('fill', x, 0, 8 * game.scale, 8 * game.scale)
     love.graphics.setColor(1, 1, 1)
     sprite(item, x, 0, game.scale)
+
+    if i == game.player.inv_cur then
+      sprite(ID.CURSOR, x, 0, game.scale)
+    end
   end
 end

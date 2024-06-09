@@ -8,6 +8,7 @@ function love.load()
       px = 0, py = 0,
       flip = false,
       inv = {7, 7+8},
+      inv_cur = 1,
       show_inv = false
     },
     map = {
@@ -37,12 +38,16 @@ function love.keypressed(_, scancode)
   if scancode == 's' or scancode == 'down' then y = y + 1 end
   if scancode == 'a' or scancode == 'left' then x = x - 1 end
   if scancode == 'd' or scancode == 'right' then x = x + 1 end
+  
+  if not game.player.show_inv then
+    game.player.flip = x == 0 and game.player.flip or x < 0
+    game.player.x = game.player.x + x
+    game.player.y = game.player.y + y
 
-  game.player.flip = x == 0 and game.player.flip or x < 0
-  game.player.x = game.player.x + x
-  game.player.y = game.player.y + y
-
-  if scancode == 'space' then action() end
+    if scancode == 'space' then action() end
+  else
+    game.player.inv_cur = (((game.player.inv_cur-1) + x) % #game.player.inv) + 1
+  end
   if scancode == 'n' then day() end
 
   if scancode == 'p' then popup(ID.ITEM_WHEAT) end
