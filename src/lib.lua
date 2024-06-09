@@ -49,7 +49,7 @@ function action()
     game.map.ground[tile] = ID.SOIL_DRY
   elseif not crop then
     if CROPS[game.player.inv[game.player.inv_cur]] ~= nil then
-      game.map.crops[tile] = CROPS[game.player.inv[game.player.inv_cur]].CROP
+      game.map.crops[tile] = CROPS[game.player.inv[game.player.inv_cur]]
       remove_from_inventory()
     end
   elseif CROPS_DONE[crop] ~= nil then
