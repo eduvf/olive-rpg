@@ -50,8 +50,7 @@ function action()
   elseif not crop then
     if CROPS[game.player.inv[game.player.inv_cur]] ~= nil then
       game.map.crops[tile] = CROPS[game.player.inv[game.player.inv_cur]].CROP
-      table.remove(game.player.inv, game.player.inv_cur)
-      game.player.inv_cur = ((game.player.inv_cur-1) % #game.player.inv) + 1
+      remove_from_inventory()
     end
   elseif CROPS_DONE[crop] ~= nil then
     game.map.crops[tile] = nil
@@ -110,6 +109,13 @@ end
 
 function add_to_inventory(id)
   table.insert(game.player.inv, id)
+end
+
+function remove_from_inventory()
+  table.remove(game.player.inv, game.player.inv_cur)
+  if game.player.inv_cur > 1 then
+    game.player.inv_cur = game.player.inv_cur - 1
+  end
 end
 
 function draw_inventory()

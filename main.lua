@@ -46,7 +46,9 @@ function love.keypressed(_, scancode)
 
     if scancode == 'space' then action() end
   else
-    game.player.inv_cur = (((game.player.inv_cur-1) + x) % #game.player.inv) + 1
+    if #game.player.inv > 0 then
+      game.player.inv_cur = (((game.player.inv_cur-1) + x) % #game.player.inv) + 1
+    end
   end
   if scancode == 'n' then day() end
 
