@@ -7,7 +7,7 @@ function love.load()
       x = 0, y = 0,
       px = 0, py = 0,
       flip = false,
-      inv = {7, 7+8},
+      inv = {8, 8, 8+8, 8+8},
       inv_cur = 1,
       show_inv = false
     },
