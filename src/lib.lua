@@ -47,14 +47,16 @@ function action()
 
   if id == ID.GRASS_1 then
     game.map.ground[tile] = ID.SOIL_DRY
-  elseif not crop and CROPS[game.player.inv[game.player.inv_cur]] ~= nil then
-    game.map.crops[tile] = CROPS[game.player.inv[game.player.inv_cur]].CROP
-    table.remove(game.player.inv, game.player.inv_cur)
-    game.player.inv_cur = ((game.player.inv_cur-1) % #game.player.inv) + 1
-  elseif crop == ID.CROP_WHEAT_DONE then
+  elseif not crop then
+    if CROPS[game.player.inv[game.player.inv_cur]] ~= nil then
+      game.map.crops[tile] = CROPS[game.player.inv[game.player.inv_cur]].CROP
+      table.remove(game.player.inv, game.player.inv_cur)
+      game.player.inv_cur = ((game.player.inv_cur-1) % #game.player.inv) + 1
+    end
+  elseif CROPS_DONE[crop] ~= nil then
     game.map.crops[tile] = nil
-    popup(ID.ITEM_WHEAT)
-    add_to_inventory(ID.ITEM_WHEAT)
+    popup(CROPS_DONE[crop])
+    add_to_inventory(CROPS_DONE[crop])
   elseif id == ID.SOIL_DRY then
     game.map.ground[tile] = ID.SOIL_WET
   end
@@ -69,7 +71,7 @@ function day()
     if watered then
       game.map.ground[n] = ID.SOIL_DRY
 
-      if crop_id ~= ID.CROP_WHEAT_DONE then
+      if CROPS_DONE[crop_id] == nil then
         game.map.crops[n] = crop_id + 1
       end
     end
