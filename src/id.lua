@@ -21,6 +21,7 @@ ID = {
   SEED_TOMATO = 8+8,
   CROP_TOMATO = 4+8*3,
   CROP_TOMATO_DONE = 8+8*3,
+  TREE = 5+8*4,
   CURSOR = 1+8*6
 }
 

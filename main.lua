@@ -19,7 +19,8 @@ function love.load()
       height = 9,
 
       ground = {},
-      crops = {}
+      crops = {},
+      wall = {}
     },
     cam = {
       x = 0, y = 0
@@ -30,6 +31,7 @@ function love.load()
   love.graphics.setDefaultFilter('nearest')
   require('src/lib')
 
+  tree(5, 5)
   map()
 end
 
@@ -42,8 +44,15 @@ function love.keypressed(_, scancode)
   
   if not game.player.show_inv then
     game.player.flip = x == 0 and game.player.flip or x < 0
-    game.player.x = game.player.x + x
-    game.player.y = game.player.y + y
+    local new_x = game.player.x + x
+    local new_y = game.player.y + y
+    if game.map.wall[(new_x + new_y * game.map.width) + 1] then
+      game.player.px = game.player.px + x * 4 * game.scale
+      game.player.py = game.player.py + y * 4 * game.scale
+    else
+      game.player.x = new_x
+      game.player.y = new_y
+    end
 
     if scancode == 'space' then action() end
   else

@@ -131,3 +131,15 @@ function draw_inventory()
     end
   end
 end
+
+function tree(x, y)
+  local pos = (x + y * game.map.width) + 1
+  game.map.ground[pos] = ID.TREE
+  game.map.ground[pos + 1] = ID.TREE + 1
+  game.map.ground[pos + game.map.width] = ID.TREE + 8
+  game.map.ground[pos + 1 + game.map.width] = ID.TREE + 9
+  game.map.wall[pos] = true
+  game.map.wall[pos + 1] = true
+  game.map.wall[pos + game.map.width] = true
+  game.map.wall[pos + 1 + game.map.width] = true
+end
