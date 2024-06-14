@@ -82,22 +82,22 @@ end
 function popup(id)
   table.insert(game.popup, {
     id = id,
-    dur = 50,
+    dur = 0,
     x = game.player.x * 8 * game.scale,
     y = game.player.y * 8 * game.scale - 4 * game.scale,
     oy = game.player.y * 8 * game.scale - 8 * game.scale
   })
 end
 
-function update_popup()
+function update_popup(dt)
   for i, p in pairs(game.popup) do
-    if p.dur == 0 then
+    if p.dur >= 1 then
       table.remove(game.popup, i)
       break
     end
 
-    game.popup[i].y = p.y + (p.oy - p.y) * 0.1
-    game.popup[i].dur = p.dur - 1
+    game.popup[i].y = p.y + (p.oy - p.y) * 4 * dt
+    game.popup[i].dur = game.popup[i].dur + dt
   end
 end
 

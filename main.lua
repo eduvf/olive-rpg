@@ -65,15 +65,15 @@ end
 function love.update(dt)
   game.time = game.time + dt
 
-  game.player.px = game.player.px + ((game.player.x * 8 * game.scale) - game.player.px) * 0.2
-  game.player.py = game.player.py + ((game.player.y * 8 * game.scale) - game.player.py) * 0.2
+  game.player.px = game.player.px + ((game.player.x * 8 * game.scale) - game.player.px) * 8 * dt
+  game.player.py = game.player.py + ((game.player.y * 8 * game.scale) - game.player.py) * 8 * dt
 
   local center_x = math.floor(love.graphics.getWidth() / 2) - 8 * game.scale
   local center_y = math.floor(love.graphics.getHeight() / 2) - 8 * game.scale
-  game.cam.x = game.cam.x + (center_x - game.player.px - game.cam.x) * 0.08
-  game.cam.y = game.cam.y + (center_y - game.player.py - game.cam.y) * 0.08
+  game.cam.x = game.cam.x + (center_x - game.player.px - game.cam.x) * 2 * dt
+  game.cam.y = game.cam.y + (center_y - game.player.py - game.cam.y) * 2 * dt
 
-  update_popup()
+  update_popup(dt)
 end
 
 function love.draw()
